@@ -8,28 +8,25 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.Window;
 
 public class Main extends GenericRichlet {
 
 	@Override
 	public void service(Page page) throws Exception {
-		final Window w = new Window("Richlet Test", "normal", false);
-	    new Label("Hello World!").setParent(w);
-	    final Label l = new Label();
-	    l.setParent(w);
-
-	    final Button b = new Button("Change");
-	    b.addEventListener(Events.ON_CLICK,
-	        new EventListener() {
-	            int count;
-	            public void onEvent(Event evt) {
-	                l.setValue("" + ++count);
-	            }
-	        });
-	    b.setParent(w);
-
+		final Window w = new Window("coinTrack by Sara and Tim", "normal", false);
+		w.setWidth("800px");
+		w.setHeight("1200px");
 	    w.setPage(page);
+	    
+	    Vlayout v = new Vlayout();
+	    v.setParent(w);
+	    
+	    Button addTransaction = new Button();
+	    addTransaction.setLabel("Add Transaction");
+	    addTransaction.setParent(v);
+	    addTransaction.addEventListener(Events.ON_CLICK, e -> new AddTransaction(this).setParent(w));
 
 	}
 
